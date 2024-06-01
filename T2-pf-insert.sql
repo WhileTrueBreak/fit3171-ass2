@@ -16,7 +16,7 @@
 --------------------------------------
 
 INSERT INTO visit (visit_id, visit_date_time, visit_length, visit_notes, visit_weight, visit_total_cost, animal_id, vet_id, clinic_id)
-VALUES (1, TO_DATE('2024-04-08 12:58:24', 'YYYY-MM-DD HH24:MI:SS'), 20, NULL, 11, 185, 2, 1005, 2);
+VALUES (1, TO_DATE('2024-04-08 12:58:24', 'YYYY-MM-DD HH24:MI:SS'), 20, NULL, 11, 180, 2, 1005, 2);
 INSERT INTO visit (visit_id, visit_date_time, visit_length, visit_notes, visit_weight, visit_total_cost, animal_id, vet_id, clinic_id)
 VALUES (2, TO_DATE('2024-04-12 08:23:54', 'YYYY-MM-DD HH24:MI:SS'), 24, NULL, 12, 342, 12, 1001, 1);
 INSERT INTO visit (visit_id, visit_date_time, visit_length, visit_notes, visit_weight, visit_total_cost, animal_id, vet_id, clinic_id)
@@ -43,7 +43,7 @@ VALUES (11, TO_DATE('2024-06-30 19:58:24', 'YYYY-MM-DD HH24:MI:SS'), 15, NULL, 1
 --------------------------------------
 
 INSERT INTO visit_service (visit_id, service_code, visit_service_linecost)
-VALUES (1, 'S001', 60);
+VALUES (1, 'S001', 55);
 INSERT INTO visit_service (visit_id, service_code, visit_service_linecost)
 VALUES (2, 'S011', 90);
 INSERT INTO visit_service (visit_id, service_code, visit_service_linecost)
