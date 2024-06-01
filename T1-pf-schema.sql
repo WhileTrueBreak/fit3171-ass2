@@ -16,12 +16,6 @@
 -- Ensure all column comments, and constraints (other than FK's)are included.
 -- FK constraints are to be added at the end of this script
 
-DROP TABLE visit CASCADE CONSTRAINTS PURGE;
-
-DROP TABLE visit_drug CASCADE CONSTRAINTS PURGE;
-
-DROP TABLE visit_service CASCADE CONSTRAINTS PURGE;
-
 -- VISIT
 
 CREATE TABLE visit (
