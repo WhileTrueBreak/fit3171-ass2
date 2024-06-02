@@ -18,103 +18,103 @@
 
 -- VISIT
 
-CREATE TABLE visit (
-    visit_id NUMBER(5) NOT NULL,
-    visit_date_time DATE NOT NULL,
-    visit_length NUMBER(2) NOT NULL,
-    visit_notes VARCHAR2(200),
-    visit_weight NUMBER(4, 1),
-    visit_total_cost NUMBER(6, 2),
-    animal_id NUMBER(5) NOT NULL,
-    vet_id NUMBER(4) NOT NULL,
-    clinic_id NUMBER (2) NOT NULL,
-    from_visit_id NUMBER(5)
+CREATE TABLE VISIT (
+    VISIT_ID NUMBER(5) NOT NULL,
+    VISIT_DATE_TIME DATE NOT NULL,
+    VISIT_LENGTH NUMBER(2) NOT NULL,
+    VISIT_NOTES VARCHAR2(200),
+    VISIT_WEIGHT NUMBER(4, 1),
+    VISIT_TOTAL_COST NUMBER(6, 2),
+    ANIMAL_ID NUMBER(5) NOT NULL,
+    VET_ID NUMBER(4) NOT NULL,
+    CLINIC_ID NUMBER(2) NOT NULL,
+    FROM_VISIT_ID NUMBER(5)
 );
 
-ALTER TABLE visit ADD CONSTRAINT visit_pk PRIMARY KEY ( visit_id );
+ALTER TABLE VISIT ADD CONSTRAINT VISIT_PK PRIMARY KEY ( VISIT_ID );
 
-COMMENT ON COLUMN visit.visit_id IS
+COMMENT ON COLUMN VISIT.VISIT_ID IS
     'Visit identifier';
-COMMENT ON COLUMN visit.visit_date_time IS
+COMMENT ON COLUMN VISIT.VISIT_DATE_TIME IS
     'Date and time of visit';
-COMMENT ON COLUMN visit.visit_length IS
+COMMENT ON COLUMN VISIT.VISIT_LENGTH IS
     'Visit length in minutes';
-COMMENT ON COLUMN visit.visit_notes IS
+COMMENT ON COLUMN VISIT.VISIT_NOTES IS
     'Vet notes from visit';
-COMMENT ON COLUMN visit.visit_weight IS
+COMMENT ON COLUMN VISIT.VISIT_WEIGHT IS
     'Weight in Kgs';
-COMMENT ON COLUMN visit.visit_total_cost IS
+COMMENT ON COLUMN VISIT.VISIT_TOTAL_COST IS
     'Total cost for this visit';
-COMMENT ON COLUMN visit.animal_id IS
+COMMENT ON COLUMN VISIT.ANIMAL_ID IS
     'Animal identifier';
-COMMENT ON COLUMN visit.vet_id IS
+COMMENT ON COLUMN VISIT.VET_ID IS
     'Identifier for the vet';
-COMMENT ON COLUMN visit.clinic_id IS
+COMMENT ON COLUMN VISIT.CLINIC_ID IS
     'Identifier for the clinic';
-COMMENT ON COLUMN visit.from_visit_id IS
+COMMENT ON COLUMN VISIT.FROM_VISIT_ID IS
     'The previous visit’s identifier';
 
 -- VISIT_DRUG
 
-CREATE TABLE visit_drug (
-    visit_id NUMBER(5) NOT NULL,
-    drug_id NUMBER(4) NOT NULL,
-    visit_drug_dose VARCHAR2(20) NOT NULL,
-    visit_drug_frequency VARCHAR2(20),
-    visit_drug_qtysupplied NUMBER(2) NOT NULL,
-    visit_drug_linecost NUMBER(5, 2) NOT NULL
+CREATE TABLE VISIT_DRUG (
+    VISIT_ID NUMBER(5) NOT NULL,
+    DRUG_ID NUMBER(4) NOT NULL,
+    VISIT_DRUG_DOSE VARCHAR2(20) NOT NULL,
+    VISIT_DRUG_FREQUENCY VARCHAR2(20),
+    VISIT_DRUG_QTYSUPPLIED NUMBER(2) NOT NULL,
+    VISIT_DRUG_LINECOST NUMBER(5, 2) NOT NULL
 );
 
-ALTER TABLE visit_drug ADD CONSTRAINT visit_drug_pk PRIMARY KEY ( visit_id, drug_id );
+ALTER TABLE VISIT_DRUG ADD CONSTRAINT VISIT_DRUG_PK PRIMARY KEY ( VISIT_ID, DRUG_ID );
 
-COMMENT ON COLUMN visit_drug.visit_id IS
+COMMENT ON COLUMN VISIT_DRUG.VISIT_ID IS
     'Identifier for visit';
-COMMENT ON COLUMN visit_drug.drug_id IS
+COMMENT ON COLUMN VISIT_DRUG.DRUG_ID IS
     'Drug identifier';
-COMMENT ON COLUMN visit_drug.visit_drug_dose IS
+COMMENT ON COLUMN VISIT_DRUG.VISIT_DRUG_DOSE IS
     'Dose prescribed in this visit';
-COMMENT ON COLUMN visit_drug.visit_drug_frequency IS
+COMMENT ON COLUMN VISIT_DRUG.VISIT_DRUG_FREQUENCY IS
     'Frequency prescribed for this drug for this visit';
-COMMENT ON COLUMN visit_drug.visit_drug_qtysupplied IS
+COMMENT ON COLUMN VISIT_DRUG.VISIT_DRUG_QTYSUPPLIED IS
     'Quantity of drug supplied';
-COMMENT ON COLUMN visit_drug.visit_drug_linecost IS
+COMMENT ON COLUMN VISIT_DRUG.VISIT_DRUG_LINECOST IS
     'Cost charged for drug in this visit';
 
 -- VISIT_SERVICE
 
-CREATE TABLE visit_service (
-    visit_id NUMBER(5) NOT NULL,
-    service_code CHAR(5) NOT NULL,
-    visit_service_linecost NUMBER(6, 2)
+CREATE TABLE VISIT_SERVICE (
+    VISIT_ID NUMBER(5) NOT NULL,
+    SERVICE_CODE CHAR(5) NOT NULL,
+    VISIT_SERVICE_LINECOST NUMBER(6, 2)
 );
 
-ALTER TABLE visit_service ADD CONSTRAINT visit_service_pk PRIMARY KEY ( visit_id, service_code );
+ALTER TABLE VISIT_SERVICE ADD CONSTRAINT VISIT_SERVICE_PK PRIMARY KEY ( VISIT_ID, SERVICE_CODE );
 
-COMMENT ON COLUMN visit_service.visit_id IS
+COMMENT ON COLUMN VISIT_SERVICE.VISIT_ID IS
     'Identifier for visit';
-COMMENT ON COLUMN visit_service.service_code IS
+COMMENT ON COLUMN VISIT_SERVICE.SERVICE_CODE IS
     'Service identifier';
-COMMENT ON COLUMN visit_service.visit_service_linecost IS
+COMMENT ON COLUMN VISIT_SERVICE.VISIT_SERVICE_LINECOST IS
     'Cost charged for this service in this visit';
 
 -- Add all missing FK Constraints below here
 
 -- foreign key constraints
-ALTER TABLE visit ADD CONSTRAINT visit_animal_fk FOREIGN KEY ( animal_id ) REFERENCES animal ( animal_id );
+ALTER TABLE VISIT ADD CONSTRAINT VISIT_ANIMAL_FK FOREIGN KEY ( ANIMAL_ID ) REFERENCES ANIMAL ( ANIMAL_ID );
 
-ALTER TABLE visit ADD CONSTRAINT visit_vet_fk FOREIGN KEY ( vet_id ) REFERENCES vet ( vet_id );
+ALTER TABLE VISIT ADD CONSTRAINT VISIT_VET_FK FOREIGN KEY ( VET_ID ) REFERENCES VET ( VET_ID );
 
-ALTER TABLE visit ADD CONSTRAINT visit_clinic_fk FOREIGN KEY ( clinic_id ) REFERENCES clinic ( clinic_id );
+ALTER TABLE VISIT ADD CONSTRAINT VISIT_CLINIC_FK FOREIGN KEY ( CLINIC_ID ) REFERENCES CLINIC ( CLINIC_ID );
 
-ALTER TABLE visit ADD CONSTRAINT visit_visit_fk FOREIGN KEY ( from_visit_id ) REFERENCES visit ( visit_id );
+ALTER TABLE VISIT ADD CONSTRAINT VISIT_VISIT_FK FOREIGN KEY ( FROM_VISIT_ID ) REFERENCES VISIT ( VISIT_ID );
 
-ALTER TABLE visit_drug ADD CONSTRAINT visit_drug_visit_fk FOREIGN KEY ( visit_id ) REFERENCES visit ( visit_id );
+ALTER TABLE VISIT_DRUG ADD CONSTRAINT VISIT_DRUG_VISIT_FK FOREIGN KEY ( VISIT_ID ) REFERENCES VISIT ( VISIT_ID );
 
-ALTER TABLE visit_drug ADD CONSTRAINT visit_drug_drug_fk FOREIGN KEY ( drug_id ) REFERENCES drug ( drug_id );
+ALTER TABLE VISIT_DRUG ADD CONSTRAINT VISIT_DRUG_DRUG_FK FOREIGN KEY ( DRUG_ID ) REFERENCES DRUG ( DRUG_ID );
 
-ALTER TABLE visit_service ADD CONSTRAINT visit_service_visit_fk FOREIGN KEY ( visit_id ) REFERENCES visit ( visit_id );
+ALTER TABLE VISIT_SERVICE ADD CONSTRAINT VISIT_SERVICE_VISIT_FK FOREIGN KEY ( VISIT_ID ) REFERENCES VISIT ( VISIT_ID );
 
-ALTER TABLE visit_service ADD CONSTRAINT visit_service_service_fk FOREIGN KEY ( service_code ) REFERENCES service ( service_code );
+ALTER TABLE VISIT_SERVICE ADD CONSTRAINT VISIT_SERVICE_SERVICE_FK FOREIGN KEY ( SERVICE_CODE ) REFERENCES SERVICE ( SERVICE_CODE );
 
 -- unique constraints
-ALTER TABLE visit ADD CONSTRAINT visit_uniq UNIQUE (visit_date_time, animal_id);
+ALTER TABLE VISIT ADD CONSTRAINT VISIT_UNIQ UNIQUE (VISIT_DATE_TIME, ANIMAL_ID);
