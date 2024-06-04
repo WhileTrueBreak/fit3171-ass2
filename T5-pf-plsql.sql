@@ -55,7 +55,7 @@ COMPOUND TRIGGER
             VAR_UPPER_COST := VAR_SERVICE_STD_COST * 1.1;
             IF (:NEW.VISIT_SERVICE_LINECOST < VAR_LOWER_COST
             OR :NEW.VISIT_SERVICE_LINECOST > VAR_UPPER_COST) THEN
-                RAISE_APPLICATION_ERROR(-20000, 'Line cost must be within 10%');
+                RAISE_APPLICATION_ERROR(-20001, 'Line cost must be within 10%');
             END IF;
         END IF;
     END BEFORE EACH ROW;
@@ -86,14 +86,27 @@ COMPOUND TRIGGER
             WHERE
                 V.VISIT_ID = :OLD.VISIT_ID;
         END IF;
-
-        COMMIT;
     END AFTER EACH ROW;
 END;
 /
 
 -- Write Test Harness for (a)
 -- initial data
+SELECT * FROM VISIT;
+SELECT * FROM VISIT_SERVICE;
+BEGIN
+    INSERT INTO VISIT_SERVICE (visit_id, service_code, visit_service_linecost)
+    VALUES (1, 'S016', 130);
+END;
+/
+BEGIN
+    INSERT INTO VISIT_SERVICE (visit_id, service_code, visit_service_linecost)
+    VALUES (1, 'S004', 135);
+END;
+/
+SELECT * FROM VISIT;
+SELECT * FROM VISIT_SERVICE;
+ROLLBACK;
 
 --(b)
 -- Complete the procedure below
