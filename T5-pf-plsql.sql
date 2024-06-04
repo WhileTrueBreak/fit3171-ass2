@@ -92,20 +92,52 @@ END;
 
 -- Write Test Harness for (a)
 -- initial data
-SELECT * FROM VISIT;
-SELECT * FROM VISIT_SERVICE;
+SELECT
+    *
+FROM
+    VISIT;
+
+SELECT
+    *
+FROM
+    VISIT_SERVICE;
+
 BEGIN
-    INSERT INTO VISIT_SERVICE (visit_id, service_code, visit_service_linecost)
-    VALUES (1, 'S016', 130);
+    INSERT INTO VISIT_SERVICE (
+        VISIT_ID,
+        SERVICE_CODE,
+        VISIT_SERVICE_LINECOST
+    ) VALUES (
+        1,
+        'S016',
+        130
+    );
 END;
 /
+
 BEGIN
-    INSERT INTO VISIT_SERVICE (visit_id, service_code, visit_service_linecost)
-    VALUES (1, 'S004', 135);
+    INSERT INTO VISIT_SERVICE (
+        VISIT_ID,
+        SERVICE_CODE,
+        VISIT_SERVICE_LINECOST
+    ) VALUES (
+        1,
+        'S004',
+        135
+    );
 END;
 /
-SELECT * FROM VISIT;
-SELECT * FROM VISIT_SERVICE;
+
+SELECT
+    *
+FROM
+    VISIT;
+
+SELECT
+    *
+FROM
+    VISIT_SERVICE;
+
 ROLLBACK;
 
 --(b)
@@ -144,17 +176,45 @@ BEGIN
         VISIT_LENGTH,
         ANIMAL_ID,
         VET_ID,
-        CLINIC_ID
+        CLINIC_ID,
+        FROM_VISIT_ID
     ) VALUES (
         VISIT_PK_SEQ.NEXTVAL,
         P_NEWVISIT_DATETIME,
         P_NEWVISIT_LENGTH,
         VAR_PREV_ANIMAL,
         VAR_PREV_VET,
-        VAR_PREV_CLINIC
+        VAR_PREV_CLINIC,
+        P_PREVVISIT_ID
     );
+    P_OUTPUT := 'Follow up successfully added';
+EXCEPTION
+    WHEN OTHERS THEN
+        P_OUTPUT := 'Error: '
+                    || SQLERRM;
 END;
 /
 
 -- Write Test Harness for (b)
 -- initial data
+SELECT
+    *
+FROM
+    VISIT;
+
+DECLARE
+    OUTPUT VARCHAR2(100);
+BEGIN
+    PRC_FOLLOWUP_VISIT(1, TO_DATE('2024-05-19 13:30:00', 'YYYY-MM-DD HH24:MI:SS'), 15, OUTPUT);
+    DBMS_OUTPUT.PUT_LINE(OUTPUT);
+    PRC_FOLLOWUP_VISIT(0, TO_DATE('2024-05-19 13:30:00', 'YYYY-MM-DD HH24:MI:SS'), 15, OUTPUT);
+    DBMS_OUTPUT.PUT_LINE(OUTPUT);
+END;
+/
+
+SELECT
+    *
+FROM
+    VISIT;
+
+ROLLBACK;

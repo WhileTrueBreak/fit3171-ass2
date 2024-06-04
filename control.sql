@@ -3,3 +3,4 @@
 @T2-pf-insert.sql
 @T3-pf-dml.sql
 @T4-pf-mods.sql
+@T5-pf-plsql.sql
