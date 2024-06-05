@@ -26,7 +26,7 @@ SELECT
 		'phone' IS CL.CLINIC_PHONE, 
 		'head_vet' IS JSON_OBJECT('id' IS V.VET_ID, 'name' IS V.VET_GIVENNAME||' '||V.VET_FAMILYNAME), 
 		'no_of_vets' IS VS.VET_COUNT, 
-		'vets' IS VS.VETS)
+		'vets' IS VS.VETS) as CLINIC_JSON
 FROM
 	CLINIC CL
 	JOIN (
